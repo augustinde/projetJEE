@@ -6,8 +6,6 @@ package com.serkox.tpcustomer.session;
 
 import com.serkox.tpcustomer.resources.Customer;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,8 +21,7 @@ public class CustomerManager {
 
     @PersistenceContext(unitName = "customerPU")
     private EntityManager em;
-    @Resource
-    private javax.transaction.UserTransaction utx;
+   
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -32,6 +29,10 @@ public class CustomerManager {
     public List<Customer> getAllCustomers(){
         Query query = em.createNamedQuery("Customer.findAll");
         return query.getResultList();
+    }
+    
+    public Customer getCustomer(int idCustomer){
+        return em.find(Customer.class, idCustomer);
     }
     
     public Customer update(Customer customer){
